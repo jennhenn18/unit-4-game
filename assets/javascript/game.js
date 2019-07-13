@@ -69,8 +69,6 @@ var buttonNum4 = generateButtonNum4(buttonMin,buttonMax);
 
 function generateButtonNum4(buttonMin,buttonMax) {
     return Math.floor(Math.random()*(buttonMax-buttonMin+1)+buttonMin);
-    
-    
 };
 
 generateButtonNum4();

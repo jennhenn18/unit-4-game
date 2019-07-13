@@ -7,25 +7,36 @@
     <title>Gem Game</title>
 
     <!-- CSS Files -->
-    <link rel=“stylesheet” href="assets/css/reset.css">
-    <link rel=“stylesheet” href="assets/css/style.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css">
 
-
+    <!-- FONT FAMILY -->
+    <link href="https://fonts.googleapis.com/css?family=Quicksand&display=swap" rel="stylesheet">
 
 </head>
 <body>
     <header><h1>Crystal Collector</h1></header>
     <section id="instructions">
         <p>
-            You will be given a random number at the start of the game.<br>
-            There are four crystals below. By clicking on a crystal you will add a specific amoutn of points to your total score.<br>
-            You win the game by matching your total score to the random number, you lose the game if your total score goes above the random number.<br>
-            The value of each crystal is hidden from you until you click on it. <br>
+            You will be given a random number at the start of the game.<br><br>
+            There are four crystals below. By clicking on a crystal you will add a specific amoutn of points to your total score.<br><br>
+            You win the game by matching your total score to the random number, you lose the game if your total score goes above the random number.<br><br>
+            The value of each crystal is hidden from you until you click on it. <br><br>
             Each time when the game starts, the game will change the values of each crystal.
         </p>
     </section>
 
-    <section id="random-num">Target number</section>
+    <div>
+        <section id="random-num">Target number</section>
+
+        <section>
+            <h3>Your total score is:</h3>
+            <div id="guessed-score">
+
+            </div>
+        </section>
+    </div>
+
 
     <section id='jewels'>
         <button class="jewels" id="first-jewel"></button>
@@ -34,14 +45,10 @@
         <button class="jewels" id="fourth-jewel"></button>
     </section>
 
-    <section>
-        <h3>Your total score is:</h3>
-        <div id="guessed-score">
 
-        </div>
-    </section>
 
     <section id="scorecard">
+        <h1>Scorecard</h1>
         <p id="message"></p>
         <p id="wins">Wins:</p>
         <p id="loses">Loses:</p>
