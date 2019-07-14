@@ -1,141 +1,177 @@
 // set global variables on page load
-var buttonMin = 1;
-var buttonMax = 12;
-var randomMin = 19;
-var randomMax = 120;
+
+//crystal variables
+
+var crystal = {
+    pink:
+    { 
+        name: "Pink",
+        value: 0
+    },
+    blue:
+    { 
+        name: "Blue",
+        value: 0
+    },
+    orange:
+    { 
+        name: "Orange",
+        value: 0
+    },
+    green:
+    { 
+        name: "Green",
+        value: 0
+    }
+};
+
+//additional variables
+
+var userScore = 0;
+var targetNum = 0;
 var wins = 0;
 var loses = 0;
-var userGuess = 0;
 
 
+//display wins and loses
+$("#wins").html(wins);
+$("#loses").html(loses);
 
-//// function to generate random number between 19-120
-
-var randomNum = generateRandomNum(randomMin,randomMax);
-
-function generateRandomNum(randomMin,randomMax) {
-    return Math.floor(Math.random()*(randomMax-randomMin+1)+randomMin);
-};
-
-generateRandomNum();
-// console.log(randomNum);
-
-//display random number in HTML
-$("#random-num").append(randomNum);
-
-//////////BUTTON 1//////////
-//function to generate random number between 1-12
-
-var buttonNum1 = generateButtonNum1(buttonMin,buttonMax);
+// START GAME FUNCTION
+///////////////////////////////////////////////
 
 
-function generateButtonNum1(buttonMin,buttonMax) {
-    return Math.floor(Math.random()*(buttonMax-buttonMin+1)+buttonMin);
-};
+function startGame() {
 
-generateButtonNum1();
-// console.log(`button 1 ${buttonNum1}`);
+        //currentscore to zero
+        userScore = 0;
 
-//////////BUTTON 2//////////
-//function to generate random number between 1-12
+        //function to generate random number between two values
+        function randomNum(min, max) {
+            return Math.floor(Math.random()*(max-min+1)+min);
+        }
+        
 
-var buttonNum2 = generateButtonNum2(buttonMin,buttonMax);
+        //generate random number between 19-120 for target number
+        targetNum = randomNum(19,120);
 
+        console.log("------random Num-------");
+        console.log(targetNum);
+        console.log("-------------------");
 
-function generateButtonNum2(buttonMin,buttonMax) {
-    return Math.floor(Math.random()*(buttonMax-buttonMin+1)+buttonMin);
-};
-
-generateButtonNum2();
-// console.log(`button2 ${buttonNum2}`);
-
-//////////BUTTON 3//////////
-//function to generate random number between 1-12
-
-var buttonNum3 = generateButtonNum3(buttonMin,buttonMax);
-
-
-function generateButtonNum3(buttonMin,buttonMax) {
-    return Math.floor(Math.random()*(buttonMax-buttonMin+1)+buttonMin);
-};
-
-generateButtonNum3();
-// console.log(`button3 ${buttonNum3}`);
-
-//////////BUTTON 4//////////
-//function to generate random number between 1-12
-
-var buttonNum4 = generateButtonNum4(buttonMin,buttonMax);
-
-function generateButtonNum4(buttonMin,buttonMax) {
-    return Math.floor(Math.random()*(buttonMax-buttonMin+1)+buttonMin);
-};
-
-generateButtonNum4();
-
-///////////////////////// END BUTTON FUNCTIONS //////////////////////////
-
-////// Assign numbers to HTML elements ////// !!! THIS NEEDS TO CHANGE TO NOT DISPLAY THE # BUT SHOW THE IMAGE ONLY
-
-// button 1
-$("#first-jewel").html(buttonNum1);
-
-//button 2
-$("#second-jewel").html(buttonNum2);
-
-//button 3
-$("#third-jewel").html(buttonNum3);
-
-//button 4
-$("#fourth-jewel").html(buttonNum4);
+        //generate random number between 1-12 for each jewel button
+        crystal.pink.value = randomNum(1,12);
+        crystal.blue.value = randomNum(1,12);
+        crystal.orange.value = randomNum(1,12);
+        crystal.green.value = randomNum(1,12);
 
 
+        console.log("------Pink Jewel-------");
+        console.log(`button 1 ${crystal.pink.value}`);
+        console.log("-------------------");
+        console.log("------Blue Jewel-------");
+        console.log(`button 1 ${crystal.blue.value}`);
+        console.log("-------------------");
+        console.log("------Orange Jewel-------");
+        console.log(`button 1 ${crystal.orange.value}`);
+        console.log("-------------------");
+        console.log("------Green Jewel-------");
+        console.log(`button 1 ${crystal.green.value}`);
+        console.log("-------------------");
 
-////////////////// ~~~~~~~~ MAIN GAME LOOP ~~~~~~~~~~~ ///////////////////
+        //display target number
+        $("#random-num").html(targetNum);
+        //display userguess number
+        $("#guessed-score").html(userScore);
+
+        console.log("initial target Num");
+        console.log(targetNum);
+        console.log("-------------------");
+        console.log("initial userscore ZERO");
+        console.log(userScore);
+        console.log("-------------------");
+}
 
 
-// create onclick function for jewel
-$(".jewel").on("click", function() {
-//add that specific number value to the total score box
-///store value clicked
-///display value clicked
-///run through conditional
-///user clicks a new button
-///add the two numbers together
-///run through conditional
+//ADD JEWEL VALUES FUNCTION
+///////////////////////////////////////////
 
-//does that total score equal the target number? 
+function addValues(crystal){
 
-// If yes, then you win
-///display win message
-///add ++ to win
-///restart game
+    //add to userscore variable
+    userScore = userScore + crystal.value;
 
-//If higher, then you lose
-///display lose message
-///add ++ to lose
-///restart game
+    //update HTML element
+    $("#guessed-score").html(userScore);
+    console.log("UserScore during game loop");
+    console.log(userScore);
+    console.log("-------------------");
+
+    //run win/lose function
+    endGame();
+}
 
 
-//If below, keep playing
-///do nothing
+// WIN OR LOSE FUNCTION
+////////////////////////////////
 
-//
+function endGame() {
+
+    //lose the game if userscore exceed target number 
+    if (userScore > targetNum) {
+
+        //notify user
+        alert("You lose!");
+
+        //add one to lose count
+        loses++;
+
+        //update html element
+        $("#loses").html(loses);
+
+        //restart the game
+        startGame();
+    }
+
+    //win the game if userscore is equal to target number
+    else if (userScore===targetNum) {
+
+        //notify user
+        alert("You win!");
+
+        //add one to win count
+        wins++;
+
+        //update html element
+        $("#wins").html(wins);
+
+        //restart the game
+        startGame();
+    }
+}
+
+startGame();
+
+//BUTTON EVENTS
+//////////////////////////////////
+
+
+// create onclick function for pink jewel
+$("#first-jewel").click(function() {
+    addValues(crystal.pink);
 });
-//display that number in the user guess box
 
+// create onclick function for blue jewel
+$("#second-jewel").click(function() {
+    addValues(crystal.blue);
+});
 
+// create onclick function for orange jewel
+$("#third-jewel").click(function() {
+    addValues(crystal.orange);
+});
 
-
-//////////////// ~~~~~~~~ END MAIN GAME LOOP ~~~~~~~~~~ ////////////////////
-
-//displays wins
-$("#wins").append(wins);
-
-//display loses
-$("#loses").append(loses);
-
-
-//restart game
-//generate new random number
-//generate new numbers for buttons
+// create onclick function for green jewel
+$("#fourth-jewel").click(function() {
+    addValues(crystal.green);
+});
